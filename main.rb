@@ -19,4 +19,4 @@ sources = Array [
 
 scraper = Scraper.new
 scraper.scrape(sources)
-scraper.export("output/DatosMarco_v03.csv")
+scraper.export("output/DatosMarco_v03.csv", sources)

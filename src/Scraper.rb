@@ -23,7 +23,7 @@ class Scraper
     @duration = timeEnd - timeStart
   end
 
-  def export(filename)
+  def export(filename, sources)
     n = 1
     CSV.open(filename, "wb") do |csv|
       csv << ["#", "MD5", "Domain", "Url", "Title", "Date", "Place", "Body", "Image"]
@@ -31,7 +31,7 @@ class Scraper
         csv << [n, article.md5, article.domain, article.uri, article.title, article.date, article.category, article.body, article.image]
         n = n + 1
       end
-      for source in @sources
+      for source in sources
         csv << [
           "",
           "",
