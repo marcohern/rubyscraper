@@ -28,7 +28,6 @@ class Program
     timeStart = Time.now
     for zcraper in @sources
       subStart = Time.now
-      puts "Scraping #{zcraper['uri']}"
       scraper = zcraper['clazz'].new
       scraper.scrape(zcraper['uri'])
       records = scraper.records

@@ -13,8 +13,10 @@ class Scraper
 
   def scrapeContent(uri, selector)
     @uri = uri
+    
+    puts "Scraping #{@uri}"
     content = HTTParty.get(uri);
-    @html = Nokogiri::HTML(content, nil, Encoding::UTF_8.to_s)
+    @html = Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
     scrapeRecords(selector)
   end
 

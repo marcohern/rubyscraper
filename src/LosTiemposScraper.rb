@@ -54,8 +54,9 @@ class LosTiemposScraper < Scraper
   end
 
   def scrapeBody(uri, article)
+    puts "...Scraping #{uri}"
     content = HTTParty.get(uri)
-    page = Nokogiri::HTML(content, nil, Encoding::UTF_8.to_s)
+    page = Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
     article.body = page.css('.body p, .content p').text.tr("\n","").strip()[0..100]+"..."
   end
 end
