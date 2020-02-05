@@ -42,16 +42,4 @@ class BaseScrapeStrategy
   def scrapeRecord(container)
     return nil
   end
-
-  def scrapeSingle(container, selector, attributes)
-    result = {
-      "foo" => "asas"
-    }
-    element = container.css(selector)
-    if element.length() > 0
-      if element.length() == 1
-        element[0].text
-      end
-    end
-  end
 end
