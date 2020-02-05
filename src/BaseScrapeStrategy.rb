@@ -3,7 +3,7 @@ require 'Nokogiri'
 
 require_relative 'Article.rb'
 
-class Scraper
+class BaseScrapeStrategy
   attr_accessor :html, :records, :uri, :index
 
   def initialize

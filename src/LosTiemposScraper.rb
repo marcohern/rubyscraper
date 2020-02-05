@@ -1,9 +1,9 @@
 require 'HTTParty'
 require 'Nokogiri'
 require_relative 'Article.rb'
-require_relative 'Scraper.rb'
+require_relative 'BaseScrapeStrategy.rb'
 
-class LosTiemposScraper < Scraper
+class LosTiemposScraper < BaseScrapeStrategy
 
   def scrape(uri)
     scrapeContent(uri,'.views-row, table .col-1, table .col-2, table .col-3, table .col-4')
