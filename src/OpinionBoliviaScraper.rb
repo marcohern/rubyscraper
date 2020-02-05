@@ -6,7 +6,7 @@ require_relative 'Scraper.rb'
 class OpinionBoliviaScraper < Scraper
 
   def scrape(uri)
-    scrapeContent(uri,'article')
+    scrapeContent(uri,'article, .more-news-section-links li')
   end
 
   def scrapeRecord(container)
@@ -33,7 +33,7 @@ class OpinionBoliviaScraper < Scraper
   end
 
   def scrapeTitleAndUrl(container, article)
-    titleElement = container.css('.title a')
+    titleElement = container.css('.title a, .data-title a')
     if titleElement.length() > 0
       article.title = titleElement.text.tr("\n","").strip()
       article.uri = titleElement[0]['href']

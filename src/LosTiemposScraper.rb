@@ -15,7 +15,7 @@ class LosTiemposScraper < Scraper
     if titleAndUrlFound
       scrapeImage(container, '.views-field-field-noticia-fotos', article)
       scrapeDate(container, article)
-      scrapePlace(container, article)
+      scrapeCategory(container, article)
       scrapeBody(@uri + article.uri, article)
       return article
     end
@@ -47,10 +47,10 @@ class LosTiemposScraper < Scraper
     end
   end
 
-  def scrapePlace(container, article)
-    placeElement = container.css('.views-field-seccion')
-    if (placeElement.length() > 0)
-      article.place = placeElement.text
+  def scrapeCategory(container, article)
+    categoryElement = container.css('.views-field-seccion')
+    if (categoryElement.length() > 0)
+      article.category = categoryElement.text
     end
   end
 

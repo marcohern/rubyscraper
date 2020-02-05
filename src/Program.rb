@@ -38,7 +38,7 @@ class Program
     CSV.open(filename, "wb") do |csv|
       csv << ["#", "MD5", "Domain", "Url", "Title", "Date", "Place", "Body", "Image"]
       for article in @results
-        csv << [n, article.md5, article.domain, article.uri, article.title, article.date, article.place, article.body, article.image]
+        csv << [n, article.md5, article.domain, article.uri, article.title, article.date, article.category, article.body, article.image]
         n = n + 1
       end
       csv << ["Records: #{results.length()}", "Duration: #{duration}s" ]

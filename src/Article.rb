@@ -2,7 +2,7 @@
 require 'digest'
 
 class Article
-  attr_accessor :selector, :image, :date, :place, :title, :uri, :body, :domain
+  attr_accessor :selector, :image, :date, :category, :title, :uri, :body, :domain
 
   def initialize
     @domain = ''
@@ -10,7 +10,7 @@ class Article
     @uri = ''
     @title = ''
     @body = ''
-
+    @category = ''
   end
 
   def md5
