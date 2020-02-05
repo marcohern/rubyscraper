@@ -7,7 +7,7 @@ Make sure you have installed Ruby. Also install the follwing libraries:
 
 1. HTTParty for reading remote websites.
 ```
-gem install HTTParty
+gem install httparty
 ```
 2. Nokogiri for parsing HTML
 ```
