@@ -1,4 +1,4 @@
-require './src/Program.rb'
+require_relative 'src/Program.rb'
 
 program = Program.new
 program.run()
