@@ -39,7 +39,7 @@ class LosTiemposScraper < Scraper
       dateValue = dateElement[0]['content']
       if !dateValue.nil? and !(dateValue=="")
         article.date = dateValue
-      elsif !dateDisplay.nil? and !(dateValue=="")
+      elsif !dateDisplay.nil? and !(dateDisplay=="")
         article.date = dateDisplay
       else
         article.date = Time.now.strftime("%Y/%m/%d %H:%M")
