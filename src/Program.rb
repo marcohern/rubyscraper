@@ -1,6 +1,6 @@
 require 'csv'
-require_relative 'LosTiemposScraper.rb'
-require_relative 'OpinionBoliviaScraper.rb'
+require_relative 'LosTiemposScrapeStrategy.rb'
+require_relative 'OpinionBoliviaScrapeStrategy.rb'
 
 class Program
 
@@ -10,13 +10,13 @@ class Program
     @sources = Array [
       {
         "uri" => "https://www.lostiempos.com",
-        "clazz" => Object.const_get('LosTiemposScraper'),
+        "clazz" => Object.const_get('LosTiemposScrapeStrategy'),
         "records" => 0,
         "duration" => 0
       },
       {
         "uri" => "https://www.opinion.com.bo",
-        "clazz" => Object.const_get('OpinionBoliviaScraper'),
+        "clazz" => Object.const_get('OpinionBoliviaScrapeStrategy'),
         "records" => 0,
         "duration" => 0
       },

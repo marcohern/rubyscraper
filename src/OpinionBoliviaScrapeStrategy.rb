@@ -3,7 +3,7 @@ require 'Nokogiri'
 require_relative 'Article.rb'
 require_relative 'BaseScrapeStrategy.rb'
 
-class OpinionBoliviaScraper < BaseScrapeStrategy
+class OpinionBoliviaScrapeStrategy < BaseScrapeStrategy
 
   def scrape(uri)
     scrapeContent(uri,'article, .more-news-section-links li')
