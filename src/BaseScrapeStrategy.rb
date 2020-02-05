@@ -6,22 +6,22 @@ require_relative 'Article.rb'
 class BaseScrapeStrategy
   attr_accessor :html, :records, :uri, :index
 
-  def initialize
+  def initialize(options)
     @records = Array[]
     @index = 0
+    @uri = options["uri"]
+    @selector = options["selector"]
   end
 
-  def scrapeContent(uri, selector)
-    @uri = uri
-    
+  def scrape()
     puts "Scraping #{@uri}"
-    content = HTTParty.get(uri);
+    content = HTTParty.get(@uri);
     @html = Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
-    scrapeRecords(selector)
+    scrapeRecords()
   end
 
-  def scrapeRecords(selector)
-    elements = @html.css(selector)
+  def scrapeRecords()
+    elements = @html.css(@selector)
     elements.map do |container|
       article = scrapeRecord(container)
       @index = @index+1

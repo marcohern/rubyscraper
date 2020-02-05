@@ -5,10 +5,6 @@ require_relative 'BaseScrapeStrategy.rb'
 
 class OpinionBoliviaScrapeStrategy < BaseScrapeStrategy
 
-  def scrape(uri)
-    scrapeContent(uri,'article, .more-news-section-links li')
-  end
-
   def scrapeRecord(container)
     if container.css('.guia-medica').length() > 0
       return nil

@@ -6,35 +6,18 @@ class Scraper
 
   attr_accessor :source, :results, :duration
 
-  def initialize
-    @sources = Array [
-      {
-        "uri" => "https://www.lostiempos.com",
-        "clazz" => Object.const_get('LosTiemposScrapeStrategy'),
-        "records" => 0,
-        "duration" => 0
-      },
-      {
-        "uri" => "https://www.opinion.com.bo",
-        "clazz" => Object.const_get('OpinionBoliviaScrapeStrategy'),
-        "records" => 0,
-        "duration" => 0
-      },
-    ]
-  end
-
-  def run
+  def scrape(sources)
     @results = Array[]
     timeStart = Time.now
-    for zcraper in @sources
+    for source in sources
       subStart = Time.now
-      scraper = zcraper['clazz'].new
-      scraper.scrape(zcraper['uri'])
+      scraper = source['class'].new(source)
+      scraper.scrape()
       records = scraper.records
       @results = @results | records
       subEnd = Time.now
-      zcraper['records'] = records.length()
-      zcraper['duration'] =subEnd - subStart
+      source['records'] = records.length()
+      source['duration'] =subEnd - subStart
     end
     timeEnd = Time.now
     @duration = timeEnd - timeStart

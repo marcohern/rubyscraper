@@ -5,10 +5,6 @@ require_relative 'BaseScrapeStrategy.rb'
 
 class LosTiemposScrapeStrategy < BaseScrapeStrategy
 
-  def scrape(uri)
-    scrapeContent(uri,'.views-row, table .col-1, table .col-2, table .col-3, table .col-4')
-  end
-
   def scrapeRecord(container)
     article = Article.new
     titleAndUrlFound = scrapeTitleAndUrl(container, article)
