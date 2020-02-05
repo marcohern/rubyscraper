@@ -34,6 +34,7 @@ class LosTiemposScraper < Scraper
 
   def scrapeDate(container, article)
     dateElement = container.css('.date-display-single');
+    article.date = Time.now.strftime("%Y-%m-%dT%H:%M:00-04:00")
     if (dateElement.length() > 0)
       dateDisplay = dateElement.text.strip()
       dateValue = dateElement[0]['content']
@@ -41,8 +42,6 @@ class LosTiemposScraper < Scraper
         article.date = dateValue
       elsif !dateDisplay.nil? and !(dateDisplay=="")
         article.date = dateDisplay
-      else
-        article.date = Time.now.strftime("%Y/%m/%d %H:%M")
       end
     end
   end

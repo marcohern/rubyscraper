@@ -11,6 +11,7 @@ class Article
     @title = ''
     @body = ''
     @category = ''
+    @date = ''
   end
 
   def md5
