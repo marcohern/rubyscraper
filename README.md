@@ -5,11 +5,11 @@ Sample ruby script created as training for learning how to scrape.
 
 Make sure you have installed Ruby. Also install the follwing libraries:
 
-1. HTTParty for reading remote websites.
+1. [HTTParty](https://github.com/jnunemaker/httparty) for reading remote websites.
 ```
 gem install httparty
 ```
-2. Nokogiri for parsing HTML
+2. [Nokogiri](https://nokogiri.org/) for parsing HTML
 ```
 gem install nokogiri
 ```
