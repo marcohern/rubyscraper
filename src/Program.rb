@@ -7,14 +7,18 @@ class Program
   attr_accessor :source, :results, :duration
 
   def initialize
-    @source = Array [
+    @sources = Array [
       {
         "uri" => "https://www.lostiempos.com",
-        "clazz" => Object.const_get('LosTiemposScraper')
+        "clazz" => Object.const_get('LosTiemposScraper'),
+        "records" => 0,
+        "duration" => 0
       },
       {
         "uri" => "https://www.opinion.com.bo",
-        "clazz" => Object.const_get('OpinionBoliviaScraper')
+        "clazz" => Object.const_get('OpinionBoliviaScraper'),
+        "records" => 0,
+        "duration" => 0
       },
     ]
   end
@@ -22,12 +26,16 @@ class Program
   def run
     @results = Array[]
     timeStart = Time.now
-    for zcraper in @source
+    for zcraper in @sources
+      subStart = Time.now
       puts "Scraping #{zcraper['uri']}"
       scraper = zcraper['clazz'].new
       scraper.scrape(zcraper['uri'])
       records = scraper.records
       @results = @results | records
+      subEnd = Time.now
+      zcraper['records'] = records.length()
+      zcraper['duration'] =subEnd - subStart
     end
     timeEnd = Time.now
     @duration = timeEnd - timeStart
@@ -41,7 +49,16 @@ class Program
         csv << [n, article.md5, article.domain, article.uri, article.title, article.date, article.category, article.body, article.image]
         n = n + 1
       end
-      csv << ["Records: #{results.length()}", "Duration: #{duration}s" ]
+      for source in @sources
+        csv << [
+          "",
+          "",
+          source['uri'],
+          "Records: #{source['records']}",
+          "Duration: #{source['duration']}s"
+      ]
+      end
+      csv << ["Total Records: #{results.length()}", "Total Duration: #{duration}s" ]
     end
   end
 end

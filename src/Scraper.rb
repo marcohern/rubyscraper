@@ -30,7 +30,7 @@ class Scraper
     end
   end
 
-  def scrapeImage(container, selector, article)
+  def scrapeImage(container, selector, article=nil)
     imgElement = container.css(selector + ' img')
     if imgElement.length() > 0
       article.image = imgElement[0]['src'] 
