@@ -1,5 +1,5 @@
-require_relative 'src/Program.rb'
+require_relative 'src/Scraper.rb'
 
 scraper = Scraper.new
-program.run()
-program.export("output/DatosMarco_v03.csv")
+scraper.run()
+scraper.export("output/DatosMarco_v03.csv")
