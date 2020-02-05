@@ -2,7 +2,7 @@ require 'csv'
 require_relative 'LosTiemposScrapeStrategy.rb'
 require_relative 'OpinionBoliviaScrapeStrategy.rb'
 
-class Program
+class Scraper
 
   attr_accessor :source, :results, :duration
 
