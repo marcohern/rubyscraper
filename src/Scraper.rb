@@ -4,10 +4,14 @@ require_relative 'OpinionBoliviaScrapeStrategy.rb'
 
 class Scraper
 
-  attr_accessor :source, :results, :duration
+  attr_accessor :source, :results, :domainResults, :duration
+
+  def initialize
+    @results = Array[]
+    @domainResults = Array[]
+  end
 
   def scrape(sources)
-    @results = Array[]
     timeStart = Time.now
     for source in sources
       subStart = Time.now
@@ -16,14 +20,15 @@ class Scraper
       records = scraper.records
       @results = @results | records
       subEnd = Time.now
-      source['records'] = records.length()
-      source['duration'] =subEnd - subStart
+
+      dr = { 'uri' => source['uri'], 'records' => records.length(), 'duration' => subEnd - subStart};
+      @domainResults.push(dr)
     end
     timeEnd = Time.now
     @duration = timeEnd - timeStart
   end
 
-  def export(filename, sources)
+  def export(filename)
     n = 1
     CSV.open(filename, "wb") do |csv|
       csv << ["#", "MD5", "Domain", "Url", "Title", "Date", "Place", "Body", "Image"]
@@ -31,16 +36,16 @@ class Scraper
         csv << [n, article.md5, article.domain, article.uri, article.title, article.date, article.category, article.body, article.image]
         n = n + 1
       end
-      for source in sources
+      for dr in @domainResults
         csv << [
           "",
           "",
-          source['uri'],
-          "Records: #{source['records']}",
-          "Duration: #{source['duration']}s"
+          dr['uri'],
+          "Records: #{dr['records']}",
+          "Duration: #{dr['duration']}s"
       ]
       end
-      csv << ["Total Records: #{results.length()}", "Total Duration: #{duration}s" ]
+      csv << ["Total Records: #{@results.length()}", "Total Duration: #{@duration}s" ]
     end
   end
 end
