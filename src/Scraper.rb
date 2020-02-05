@@ -15,10 +15,12 @@ class Scraper
     timeStart = Time.now
     for source in sources
       subStart = Time.now
-      scraper = source['class'].new(source)
-      scraper.scrape()
-      records = scraper.records
+
+      strategy = Object.const_get(source['strategy']).new(source)
+      strategy.scrape()
+      records = strategy.records
       @results = @results | records
+
       subEnd = Time.now
 
       dr = { 'uri' => source['uri'], 'records' => records.length(), 'duration' => subEnd - subStart};
