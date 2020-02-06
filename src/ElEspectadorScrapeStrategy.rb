@@ -7,9 +7,8 @@ class ElEspectadorScrapeStrategy < BaseScrapeStrategy
     article = Article.new
     titleAndUrlFound = scrapeTitleAndUrl(container, article)
     if titleAndUrlFound
-      scrapeImage(container, '.node-image', article)
-      #scrapeDate(container, article)
-      #scrapeCategory(container, article)
+      scrapeImage(container, '.image-container', article)
+      scrapeCategoryDate(container, article)
       #scrapeBody(@uri + article.uri, article)
       return article
     end
@@ -17,7 +16,7 @@ class ElEspectadorScrapeStrategy < BaseScrapeStrategy
   end
 
   def scrapeTitleAndUrl(container, article)
-    linkElement = container.css('.node-title a')
+    linkElement = container.css('h2 a, h3 a')
     if linkElement.length() > 0
       article.title = linkElement[0].text
       article.uri = linkElement[0]['href']
@@ -40,10 +39,15 @@ class ElEspectadorScrapeStrategy < BaseScrapeStrategy
     end
   end
 
-  def scrapeCategory(container, article)
-    categoryElement = container.css('.views-field-seccion')
+  def scrapeCategoryDate(container, article)
+    ctn = container.css('.category-published')
+    categoryElement = ctn.css('.category');
     if (categoryElement.length() > 0)
       article.category = categoryElement.text
+    end
+    dateElement = ctn.css('.published-at');
+    if (dateElement.length() > 0)
+      article.date = dateElement.text
     end
   end
 

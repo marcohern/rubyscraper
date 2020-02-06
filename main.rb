@@ -14,13 +14,13 @@ sources = Array [
     "scrapeBody" => true
   },
   {
-    "uri" => "https://www.elespectador.com/noticias",
+    "uri" => "https://www.eltiempo.com",
     "strategy" => 'ElEspectadorScrapeStrategy',
-    "selector" => '.object',
+    "selector" => '.article-details',
     "scrapeBody" => true
   },
 ]
 
 scraper = Scraper.new
 scraper.scrape(sources)
-scraper.export("output/DatosMarco_v04.csv")
+scraper.export("output/DatosMarco_v05.csv")
