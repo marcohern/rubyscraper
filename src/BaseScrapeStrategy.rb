@@ -5,7 +5,7 @@ require 'pry'
 require_relative 'Article.rb'
 
 class BaseScrapeStrategy
-  attr_accessor :html, :records, :uri, :index, :scrapeBody
+  attr_accessor :html, :records, :uri, :counter, :scrapeBody
 
   def initialize(options, records=nil)
     if records.nil?
@@ -13,7 +13,7 @@ class BaseScrapeStrategy
     else
       @records = records
     end
-    @index = 0
+    @counter = 0
     @uri = options["uri"]
     @selector = options["selector"]
     if options.has_key? 'scrapeBody'
@@ -38,9 +38,9 @@ class BaseScrapeStrategy
   def scrapeRecords()
     elements = @html.css(@selector)
     elements.map do |container|
-      @index = @index+1
       article = scrapeRecord(container)
       if !article.nil?
+        @counter = @counter + 1
         article.domain = @uri
         if @scrapeBody
           begin
