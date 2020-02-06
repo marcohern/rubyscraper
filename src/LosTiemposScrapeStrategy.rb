@@ -1,5 +1,3 @@
-require 'HTTParty'
-require 'Nokogiri'
 require_relative 'Article.rb'
 require_relative 'BaseScrapeStrategy.rb'
 
