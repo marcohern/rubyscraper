@@ -13,10 +13,14 @@ class BaseScrapeStrategy
     @selector = options["selector"]
   end
 
+  def getContent(uri)
+    puts "Scraping #{uri}"
+    content = HTTParty.get(uri);
+    return Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
+  end
+
   def scrape()
-    puts "Scraping #{@uri}"
-    content = HTTParty.get(@uri);
-    @html = Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
+    @html = getContent(@uri)
     scrapeRecords()
   end
 

@@ -39,10 +39,7 @@ class OpinionBoliviaScrapeStrategy < BaseScrapeStrategy
   end
 
   def scrapeBody(uri, article)
-    
-    puts "...Scraping #{uri}"
-    content = HTTParty.get(uri)
-    page = Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
+    page = getContent(uri)
     article.body = page.css('.body').text.tr("\n","").strip()[0..100]+"..."
     article.date = page.css('.content-time').text.tr("\n","").strip()
   end
