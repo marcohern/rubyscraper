@@ -7,8 +7,12 @@ require_relative 'Article.rb'
 class BaseScrapeStrategy
   attr_accessor :html, :records, :uri, :index, :scrapeBody
 
-  def initialize(options)
-    @records = Array[]
+  def initialize(options, records=nil)
+    if records.nil?
+      @records = Array[]
+    else
+      @records = records
+    end
     @index = 0
     @uri = options["uri"]
     @selector = options["selector"]
@@ -22,7 +26,7 @@ class BaseScrapeStrategy
   def getContent(uri)
     print "#{uri}-"
     content = HTTParty.get(uri);
-    puts " #{content.length} bytes"
+    puts "#{content.length} bytes"
     return Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
   end
 

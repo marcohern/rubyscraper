@@ -17,14 +17,14 @@ class Scraper
     for source in sources
       subStart = Time.now
 
-      strategy = Object.const_get(source['strategy']).new(source)
+      strategy = Object.const_get(source['strategy']).new(source, @results)
       strategy.scrape()
-      records = strategy.records
-      @results = @results | records
+      #records = strategy.records
+      #@results = @results | records
 
       subEnd = Time.now
 
-      dr = { 'uri' => source['uri'], 'records' => records.length(), 'duration' => subEnd - subStart};
+      dr = { 'uri' => source['uri'], 'records' => 0, 'duration' => subEnd - subStart};
       @domainResults.push(dr)
     end
     timeEnd = Time.now
