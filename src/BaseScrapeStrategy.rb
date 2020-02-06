@@ -1,21 +1,28 @@
 require 'HTTParty'
 require 'Nokogiri'
+require 'pry'
 
 require_relative 'Article.rb'
 
 class BaseScrapeStrategy
-  attr_accessor :html, :records, :uri, :index
+  attr_accessor :html, :records, :uri, :index, :scrapeBody
 
   def initialize(options)
     @records = Array[]
     @index = 0
     @uri = options["uri"]
     @selector = options["selector"]
+    if options.has_key? 'scrapeBody'
+      @scrapeBody = options["scrapeBody"] 
+    else
+      @scrapeBody = false
+    end
   end
 
   def getContent(uri)
-    puts "Scraping #{uri}"
+    print "Scraping #{uri}:#{@selector}"
     content = HTTParty.get(uri);
+    puts " #{content.length} bytes"
     return Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
   end
 
@@ -27,10 +34,14 @@ class BaseScrapeStrategy
   def scrapeRecords()
     elements = @html.css(@selector)
     elements.map do |container|
-      article = scrapeRecord(container)
       @index = @index+1
+      article = scrapeRecord(container)
       if !article.nil?
         article.domain = @uri
+        if @scrapeBody
+          bodyHtml = getContent(@uri + article.uri)
+          scrapeBody(article, bodyHtml)
+        end
         @records.push(article)
       end
     end
@@ -45,5 +56,9 @@ class BaseScrapeStrategy
 
   def scrapeRecord(container)
     raise NotImplementedError.new("You must implement scrapeRecord.")
+  end
+
+  def scrapeBody(article, bodyHtml)
+    raise NotImplementedError.new("You must implement scrapeBody.")
   end
 end

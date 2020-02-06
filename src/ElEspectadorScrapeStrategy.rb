@@ -1,22 +1,23 @@
 require_relative 'Article.rb'
 require_relative 'BaseScrapeStrategy.rb'
 
-class LosTiemposScrapeStrategy < BaseScrapeStrategy
+class ElEspectadorScrapeStrategy < BaseScrapeStrategy
 
   def scrapeRecord(container)
     article = Article.new
     titleAndUrlFound = scrapeTitleAndUrl(container, article)
     if titleAndUrlFound
-      scrapeImage(container, '.views-field-field-noticia-fotos', article)
-      scrapeDate(container, article)
-      scrapeCategory(container, article)
+      scrapeImage(container, '.node-image', article)
+      #scrapeDate(container, article)
+      #scrapeCategory(container, article)
+      #scrapeBody(@uri + article.uri, article)
       return article
     end
     return nil
   end
 
   def scrapeTitleAndUrl(container, article)
-    linkElement = container.css('.views-field-title a')
+    linkElement = container.css('.node-title a')
     if linkElement.length() > 0
       article.title = linkElement[0].text
       article.uri = linkElement[0]['href']
@@ -47,6 +48,6 @@ class LosTiemposScrapeStrategy < BaseScrapeStrategy
   end
 
   def scrapeBody(article, bodyHtml)
-    article.body = bodyHtml.css('.body p, .content p').text.tr("\n","").strip()[0..100]+"..."
+    #article.body = bodyHtml.css('.body p, .content p').text.tr("\n","").strip()[0..100]+"..."
   end
 end

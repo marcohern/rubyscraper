@@ -11,7 +11,6 @@ class OpinionBoliviaScrapeStrategy < BaseScrapeStrategy
     found = scrapeTitleAndUrl(container, article)
     if found
       scrapeDataImage(container, article)
-      scrapeBody(@uri + article.uri, article)
       return article
     end
     return nil
@@ -36,9 +35,8 @@ class OpinionBoliviaScrapeStrategy < BaseScrapeStrategy
     return false
   end
 
-  def scrapeBody(uri, article)
-    page = getContent(uri)
-    article.body = page.css('.body').text.tr("\n","").strip()[0..100]+"..."
-    article.date = page.css('.content-time').text.tr("\n","").strip()
+  def scrapeBody(article, bodyHtml)
+    article.body = bodyHtml.css('.body').text.tr("\n","").strip()[0..100]+"..."
+    article.date = bodyHtml.css('.content-time').text.tr("\n","").strip()
   end
 end
