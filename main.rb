@@ -15,7 +15,7 @@ sources = Array [
   },
   {
     "uri" => "https://www.eltiempo.com",
-    "strategy" => 'ElEspectadorScrapeStrategy',
+    "strategy" => 'ElTiempoScrapeStrategy',
     "selector" => '.article-details',
     "scrapeBody" => true
   },

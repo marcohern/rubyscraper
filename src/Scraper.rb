@@ -1,7 +1,7 @@
 require 'csv'
 require_relative 'LosTiemposScrapeStrategy.rb'
 require_relative 'OpinionBoliviaScrapeStrategy.rb'
-require_relative 'ElEspectadorScrapeStrategy.rb'
+require_relative 'ElTiempoScrapeStrategy.rb'
 
 class Scraper
 

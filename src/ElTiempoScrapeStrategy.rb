@@ -1,7 +1,7 @@
 require_relative 'Article.rb'
 require_relative 'BaseScrapeStrategy.rb'
 
-class ElEspectadorScrapeStrategy < BaseScrapeStrategy
+class ElTiempoScrapeStrategy < BaseScrapeStrategy
 
   def scrapeRecord(container)
     article = Article.new
