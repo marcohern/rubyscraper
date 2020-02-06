@@ -24,3 +24,6 @@ sources = Array [
 scraper = Scraper.new
 scraper.scrape(sources)
 scraper.export("output/DatosMarco_v05.csv")
+
+# x = {foo: "bar",one: "two" }
+# puts x[:foo]

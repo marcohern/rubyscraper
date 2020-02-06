@@ -1,7 +1,4 @@
 require 'csv'
-require_relative 'LosTiemposScrapeStrategy.rb'
-require_relative 'OpinionBoliviaScrapeStrategy.rb'
-require_relative 'ElTiempoScrapeStrategy.rb'
 
 class Scraper
 
@@ -17,6 +14,7 @@ class Scraper
     for source in sources
       subStart = Time.now
 
+      require_relative source['strategy']+'.rb'
       strategy = Object.const_get(source['strategy']).new(source, @results)
       strategy.scrape()
 
