@@ -40,6 +40,6 @@ class BaseScrapeStrategy
   end
 
   def scrapeRecord(container)
-    return nil
+    raise NotImplementedError.new("You must implement scrapeRecord.")
   end
 end
