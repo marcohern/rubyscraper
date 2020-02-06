@@ -20,7 +20,7 @@ class BaseScrapeStrategy
   end
 
   def getContent(uri)
-    print "Scraping #{uri}:#{@selector}"
+    print "#{uri}-"
     content = HTTParty.get(uri);
     puts " #{content.length} bytes"
     return Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
@@ -39,8 +39,11 @@ class BaseScrapeStrategy
       if !article.nil?
         article.domain = @uri
         if @scrapeBody
-          bodyHtml = getContent(@uri + article.uri)
-          scrapeBody(article, bodyHtml)
+          begin
+            bodyHtml = getContent(@uri + article.uri)
+            scrapeBody(article, bodyHtml)
+          rescue
+          end
         end
         @records.push(article)
       end
