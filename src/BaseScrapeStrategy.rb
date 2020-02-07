@@ -28,9 +28,9 @@ class BaseScrapeStrategy
     print "#{self.class.name}-#{uri}-"
     content = HTTParty.get(uri);
     puts "#{content.length} bytes";
-    open("output/#{self.class.name}.#{@getContentCounter}.html", "w") { |f|
-      f.print(content.body)
-    }
+    # open("output/#{self.class.name}.#{@getContentCounter}.html", "w") { |f|
+    #   f.print(content.body)
+    # }
     @getContentCounter += 1
     scontent = content.body.gsub(/\0/,"")
     return Nokogiri::HTML(scontent, nil, Encoding::UTF_8.to_s)
