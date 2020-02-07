@@ -5,9 +5,10 @@ require 'pry'
 require_relative 'Article.rb'
 
 class BaseScrapeStrategy
-  attr_accessor :html, :records, :uri, :counter, :scrapeBody
+  attr_accessor :html, :records, :uri, :counter, :scrapeBody, :getContentCounter
 
   def initialize(options, records=nil)
+    @getContentCounter = 0
     if records.nil?
       @records = Array[]
     else
@@ -24,10 +25,15 @@ class BaseScrapeStrategy
   end
 
   def getContent(uri)
-    print "#{uri}-"
+    print "#{self.class.name}-#{uri}-"
     content = HTTParty.get(uri);
-    puts "#{content.length} bytes"
-    return Nokogiri::HTML(content.body, nil, Encoding::UTF_8.to_s)
+    puts "#{content.length} bytes";
+    open("output/#{self.class.name}.#{@getContentCounter}.html", "w") { |f|
+      f.print(content.body)
+    }
+    @getContentCounter += 1
+    scontent = content.body.gsub(/\0/,"")
+    return Nokogiri::HTML(scontent, nil, Encoding::UTF_8.to_s)
   end
 
   def scrape()
@@ -47,6 +53,7 @@ class BaseScrapeStrategy
             bodyHtml = getContent(@uri + article.uri)
             scrapeBody(article, bodyHtml)
           rescue
+            puts "ERROR!"
           end
         end
         @records.push(article)
